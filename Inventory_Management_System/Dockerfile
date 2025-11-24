@@ -1,22 +1,19 @@
-# Use official Python image as base
 FROM python:3.11
 
-# Set working directory in the container
 WORKDIR /app
 
-# Copy project files
-COPY . /app/
+# Copy requirements first (faster builds)
+COPY requirements.txt /app/
 
-# Install dependencies
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install -r requirements.txt \
-    && pip install gunicorn  # Install Gunicorn
+    && pip install gunicorn
 
-# Collect static files (for production)
-RUN mkdir -p /app/staticfiles && python manage.py collectstatic --noinput
+# Copy the rest of the project
+COPY . /app/
 
-# Expose the port Django runs on
+# Expose port
 EXPOSE 8000
 
-# Run migrations and start Gunicorn server
-CMD ["sh", "-c", "python manage.py migrate && gunicorn Inventory_Management_System.wsgi:application --bind 0.0.0.0:8000"]
+# No collectstatic here because DB isn’t ready yet.
+CMD ["sh", "-c", "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn Inventory_Management_System.wsgi:application --bind 0.0.0.0:8000"]

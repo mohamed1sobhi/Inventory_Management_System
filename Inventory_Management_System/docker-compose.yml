@@ -1,36 +1,61 @@
-version: '3.8'
+# version: '3.8'
 
+# services:
+#   web:
+#     build: .
+#     container_name: django_inventory
+#     command: gunicorn Inventory_Management_System.wsgi:application --bind 0.0.0.0:8000
+#     volumes:
+#       - .:/app
+#     ports:
+#       - "8000:8000"
+#     depends_on:
+#       - db
+#     environment:
+#       POSTGRES_DB: inventory
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: 12345678qwe
+#       POSTGRES_HOST: db
+#       POSTGRES_PORT: 5432
+#     restart: always
+
+#   db:
+#     image: postgres:15
+#     container_name: postgres_inventory
+#     environment:
+#       POSTGRES_DB: inventory
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: 12345678qwe
+#     ports:
+#       - "5433:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     restart: always
+
+# volumes:
+#   postgres_data:
 services:
   web:
     build: .
     container_name: django_inventory
-    command: gunicorn Inventory_Management_System.wsgi:application --bind 0.0.0.0:8000
+    working_dir: /app
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
-    environment:
-      POSTGRES_DB: inventory
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345678qwe
-      POSTGRES_HOST: db
-      POSTGRES_PORT: 5432
-    restart: always
 
   db:
-    image: postgres:15
-    container_name: postgres_inventory
+    image: postgres:13
+    container_name: inventory_management_system-db-1
     environment:
-      POSTGRES_DB: inventory
+      POSTGRES_DB: mydatabase
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345678qwe
-    ports:
-      - "5433:5432"
+      POSTGRES_PASSWORD: 12345678
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    restart: always
 
 volumes:
   postgres_data:

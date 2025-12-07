@@ -83,8 +83,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Inventory_Management_System.wsgi.application'
 
 
+# DATABASES = {
+#     'default': dj_database_url.config(default='postgresql://postgres:NJBiEuWsByfULdXTHdiUZExKrnDhmZed@switchyard.proxy.rlwy.net:29360/railway')# }
+
+
 DATABASES = {
-    'default': dj_database_url.config(default='postgresql://postgres:NJBiEuWsByfULdXTHdiUZExKrnDhmZed@switchyard.proxy.rlwy.net:29360/railway')
+    'default': dj_database_url.config(default='postgresql://postgres:oRdsyGyvzOHODdtuRmnBdrgLmSJhmsjm@centerbeam.proxy.rlwy.net:25005/railway')
 }
 
 # Password validation

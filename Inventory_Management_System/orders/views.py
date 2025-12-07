@@ -22,6 +22,10 @@ class OrderCreateView(LoginRequiredMixin,CreateView):
         context["btn_name"] = "Add Order"
         return context
     def form_valid(self, form):
+        pending_order = Order.objects.filter(created_by=self.request.user, status="Pending").exists()
+        if pending_order:
+            message.error(self.request, "You already have a pending order. Please complete it before creating a new one.")
+            return self.form_invalid(form)
         form.instance.created_by = self.request.user
         message.success(self.request, "Order created successfully.")
         return super().form_valid(form)
@@ -30,6 +34,8 @@ class OrderListView(LoginRequiredMixin,ListView):
     model = Order
     template_name = 'orders/order_list.html'
     context_object_name = 'orders'
+    def get_queryset(self):
+        return Order.objects.all().order_by('id') 
 
 
 class OrderDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):

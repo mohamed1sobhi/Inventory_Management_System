@@ -8,6 +8,8 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'dummy-secret-key-for-dev')
 DEBUG = 'False'
 
 ALLOWED_HOSTS = ['*'] 
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+
 
 """
 Django settings for Inventory_Management_System project.
@@ -90,6 +92,17 @@ WSGI_APPLICATION = 'Inventory_Management_System.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(default='postgresql://postgres:oRdsyGyvzOHODdtuRmnBdrgLmSJhmsjm@centerbeam.proxy.rlwy.net:25005/railway')
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'inventory',  
+#         'USER': 'postgres',         
+#         'PASSWORD': '12345678', 
+#         'HOST': 'localhost',           
+#         'PORT': '5432',                 
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

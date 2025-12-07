@@ -29,6 +29,8 @@ class List_all_products(LoginRequiredMixin,ListView):
     context_object_name = 'products'
     login_url = 'login'
     redirect_field_name = 'next'
+    def get_queryset(self):
+        return Product.objects.all().order_by('id') 
 
 class Update_product(LoginRequiredMixin,UpdateView):
     model = Product

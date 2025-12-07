@@ -27,6 +27,8 @@ class ShipmentListView(LoginRequiredMixin,ListView):
     model = Shipment
     template_name = 'shipments/shipment_list.html'
     context_object_name = 'shipments'
+    def get_queryset(self):
+        return Shipment.objects.all().order_by("id")
 
 class ShipmentDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     model = Shipment
